@@ -146,27 +146,38 @@ def _heuristic_clips(segments: list[Segment], max_clips: int) -> list[ClipPlan]:
         return clips
 
     target = (settings.clip_min_seconds + settings.clip_max_seconds) / 2
+
+    def _flush(start: float, end: float, texts: list[str]) -> None:
+        clips.append(
+            ClipPlan(
+                start=start,
+                end=end,
+                title=" ".join(texts)[:60] or "Corte",
+                hook=texts[0] if texts else "",
+                theme="auto",
+                virality_score=50,
+                reason="Selecionado por divisão automática (sem LLM).",
+            )
+        )
+
     bucket_start = segments[0].start
     bucket_text: list[str] = []
+    last_end = segments[0].end
 
     for seg in segments:
         bucket_text.append(seg.text)
+        last_end = seg.end
         if seg.end - bucket_start >= target:
-            clips.append(
-                ClipPlan(
-                    start=bucket_start,
-                    end=seg.end,
-                    title=" ".join(bucket_text)[:60] or "Corte",
-                    hook=bucket_text[0] if bucket_text else "",
-                    theme="auto",
-                    virality_score=50,
-                    reason="Selecionado por divisão automática (sem LLM).",
-                )
-            )
+            _flush(bucket_start, seg.end, bucket_text)
             bucket_start = seg.end
             bucket_text = []
         if len(clips) >= max_clips:
             break
+
+    # Fecha o último bloco restante (cobre vídeos mais curtos que o alvo).
+    if bucket_text and len(clips) < max_clips:
+        _flush(bucket_start, last_end, bucket_text)
+
     return clips
 
 
