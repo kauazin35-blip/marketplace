@@ -1,0 +1,24 @@
+# --- API / servidor ---
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+python-multipart==0.0.20
+pydantic==2.10.4
+pydantic-settings==2.7.1
+
+# --- Transcrição local (GPU / CUDA) ---
+faster-whisper==1.1.1
+
+# --- Download de vídeos (YouTube etc.) ---
+yt-dlp==2025.1.15
+
+# --- Visão computacional (reframe 9:16 seguindo rosto) ---
+opencv-python-headless==4.11.0.86
+numpy==2.2.1
+
+# --- Cliente HTTP (Ollama / Claude fallback) ---
+httpx==0.28.1
+
+# NOTA: ffmpeg precisa estar instalado no sistema (não é pip).
+#   Windows: winget install Gyan.FFmpeg   (ou choco install ffmpeg)
+#   Linux:   sudo apt install ffmpeg
+# NOTA: para usar a GPU no faster-whisper, instale CUDA 12 + cuDNN 9.

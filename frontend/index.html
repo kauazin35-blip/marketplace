@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ClipForge — Cortador de Vídeo Automático</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">✂️</span>
+      <span class="brand-name">ClipForge</span>
+    </div>
+    <div id="health" class="health">verificando…</div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Transforme vídeos longos em <span>cortes virais</span></h1>
+      <p>A IA transcreve, encontra os ganchos e gera cortes verticais 9:16 com legendas — automático, como o OpusClip.</p>
+    </section>
+
+    <section class="card uploader">
+      <div class="tabs">
+        <button class="tab active" data-tab="upload">📁 Upload</button>
+        <button class="tab" data-tab="youtube">▶️ YouTube</button>
+      </div>
+
+      <div class="tab-panel" id="panel-upload">
+        <label class="dropzone" id="dropzone">
+          <input type="file" id="fileInput" accept="video/*" hidden />
+          <span class="dz-icon">⬆️</span>
+          <span class="dz-text">Arraste um vídeo aqui ou clique para escolher</span>
+          <span class="dz-file" id="fileName"></span>
+        </label>
+      </div>
+
+      <div class="tab-panel hidden" id="panel-youtube">
+        <input type="url" id="youtubeUrl" class="input"
+               placeholder="Cole o link do YouTube (https://...)" />
+      </div>
+
+      <div class="options">
+        <label>
+          Idioma
+          <select id="language" class="input">
+            <option value="">Detectar automático</option>
+            <option value="pt">Português</option>
+            <option value="en">Inglês</option>
+            <option value="es">Espanhol</option>
+          </select>
+        </label>
+        <label>
+          Nº de cortes
+          <input type="number" id="maxClips" class="input" value="10" min="1" max="30" />
+        </label>
+      </div>
+
+      <button id="startBtn" class="btn-primary">Gerar cortes ✨</button>
+    </section>
+
+    <section class="card progress hidden" id="progressCard">
+      <div class="progress-head">
+        <span id="statusLabel">Processando…</span>
+        <span id="progressPct">0%</span>
+      </div>
+      <div class="bar"><div class="bar-fill" id="barFill"></div></div>
+      <p class="status-msg" id="statusMsg"></p>
+      <p class="transcript" id="transcript"></p>
+    </section>
+
+    <section class="results hidden" id="results">
+      <h2>Seus cortes</h2>
+      <div class="clip-grid" id="clipGrid"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    Roda 100% local na sua máquina · GPU + Whisper + IA de cortes
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>

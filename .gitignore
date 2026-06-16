@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+*.egg-info/
+
+# Ambiente
+.env
+
+# Dados gerados (vídeos, áudio, cortes)
+data/
+!data/.gitkeep
+
+# Modelos baixados pelo faster-whisper
+*.bin
+*.pt
+
+# Sistema
+.DS_Store
+Thumbs.db
